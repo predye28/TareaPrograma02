@@ -1,15 +1,14 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 
 for line in sys.stdin:
-    # Eliminar espacios en blanco y dividir la línea en palabras
-    words = line.strip().split("\t")
-
-    # Ignorar líneas vacías o con menos de dos columnas
-    if len(words) < 2:
+    words = line.strip().split(",")
+    if len(words) < 2 or not words[0] or not words[1]:
         continue
+    page_title = words[0].strip('"')
+    subtitle = words[1].strip('"')
+    if page_title.lower() == "page_title":
+        continue  # Ignorar la fila de encabezado
+    print(f"{page_title}\t1")
 
-    # Tomar el título de la página y emitir una pareja (clave, valor) para contar cada título
-    title = words[0]
-    print(f"{title}\t1")

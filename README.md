@@ -36,11 +36,22 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 - export PDSH_RCMD_TYPE=ssh
 - start-all.sh
 
-### Ingresar un archivo en hadoop
-- hdfs dfs -copyFromLocal /home/predye/Documentos/TareaII/wikipedia_data.json /predye
+# Comandos en hadoop
 
-### verificar que este un archivo:
-- hdfs dfs -ls /predye
 
-### crear carpeta en hdfs:
-- hdfs dfs -ls /predye
+### Crear carpeta en hdfs:
+- hadoop fs -mkdir /ruta/en/hdfs
+
+### Copiar el Archivo a HDFS:
+- hadoop fs -copyFromLocal /ruta/local/al/archivo.csv /ruta/en/hdfs/
+
+### Verificar que este un archivo:
+- hadoop fs -ls /ruta/en/hdfs/
+
+### Ejecutar el trabajo MapReduce en Hadoop:
+- hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-* \
+-files titles_count_mapper.py,titles_count_reducer.py -mapper titles_count_mapper.py -reducer titles_count_reducer.py \
+-input /ruta/al/archivo.csv -output /ruta/de/salida
+
+### Verificar el resultado:
+- hadoop fs -cat /ruta/de/salida/output_titles_count/part-00000
