@@ -6,8 +6,8 @@ Este proyecto es realizado en una maquina virtual en ubuntu.
 Ingresar los siguientes comandos para actualizar y instalar lo necesario para correr el proyecto:
 
 #Actualizar el sistema:
-sudo apt update
-sudo apt upgrade
+- sudo apt update
+- sudo apt upgrade
 
 #Instalar Pyhton3 y pip
 sudo apt install python3
