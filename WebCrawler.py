@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import json  # Para almacenar los datos en formato JSON
+import csv  # Cambiamos la importación a la biblioteca csv
 import nltk
 from nltk.stem import SnowballStemmer
 
@@ -8,7 +8,7 @@ from nltk.stem import SnowballStemmer
 start_url = "https://es.wikipedia.org/wiki/Ambiente_construido"
 
 # Definir el límite de páginas a rastrear (ajústalo según tus necesidades)
-max_pages_to_crawl = 2
+max_pages_to_crawl = 17000
 
 # Crear una lista para almacenar los datos de cada página
 pages_data = []
@@ -40,7 +40,6 @@ def extract_page_data(url):
             # Extraer texto, evitando elementos que no son cadena de texto
             page_data["text"] = [str(element) for element in soup.find_all(string=True) if isinstance(element, (str, bytes))]
 
-
             # Extraer imágenes y aplicar Stemming al "alt" texto
             images = soup.find_all("img")
             for image in images:
@@ -71,28 +70,55 @@ def extract_page_data(url):
         print(f"Error al rastrear {url}: {e}")
 
 # Comenzar el rastreo desde la página principal de Wikipedia
-visited_urls = [start_url]
+visited_urls = set([start_url])
 
 while visited_urls and len(pages_data) < max_pages_to_crawl:
-    current_url = visited_urls.pop(0)
-    extract_page_data(current_url)
-
-    # Recorrer enlaces para añadir a la lista de URLs si aún no se han visitado
+    current_url = visited_urls.pop()
     try:
+        # Hacer la solicitud solo una vez
         response = requests.get(current_url)
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, "html.parser")
+
+            # Procesar la página actual
+            extract_page_data(current_url)
+
+            # Recorrer enlaces para añadir a la lista de URLs si aún no se han visitado
             links = soup.find_all("a", href=True)
             for link in links:
                 next_url = link["href"]
                 if next_url.startswith("/wiki/"):
                     next_url = "https://es.wikipedia.org" + next_url
                     if next_url not in visited_urls:
-                        visited_urls.append(next_url)
+                        visited_urls.add(next_url)
 
-    except Exception as e:
-        print(f"Error al obtener enlaces de {current_url}: {e}")
+    except requests.RequestException as e:
+        print(f"Error al procesar {current_url}: {e}")
 
-# Al final, guardar los datos en un archivo JSON
-with open("wikipedia_data.json", "w", encoding="utf-8") as json_file:
-    json.dump(pages_data, json_file, ensure_ascii=False, indent=4)
+# Al final, guardar los datos en un archivo CSV
+csv_filename = "wikipedia_data.csv"
+
+with open(csv_filename, "w", newline="", encoding="utf-8") as csv_file:
+    # Configurar el escritor CSV
+    csv_writer = csv.writer(csv_file)
+
+    # Escribir la fila de encabezados
+    csv_writer.writerow(["Page_Title", "Subtitle", "Subtitle_Text", "Image_SRC", "Image_ALT", "Reference_Link", "Reference_Description"])
+
+    # Escribir los datos de cada página en el archivo CSV
+    for page_data in pages_data:
+        title = page_data["title"]
+        
+        # Escribir información de subtítulos y texto
+        for subtitle, text in zip(page_data["subtitles"], page_data["text"]):
+            csv_writer.writerow([title, subtitle, text, "", "", "", ""])  # Dejamos las columnas de imágenes y referencias en blanco
+
+        # Escribir información de imágenes
+        for image in page_data["images"]:
+            csv_writer.writerow([title, "", "", image["src"], "|".join(image["alt"]), "", ""])  # Dejamos las columnas de subtítulo y referencias en blanco
+
+        # Escribir información de referencias
+        for reference in page_data["references"]:
+            csv_writer.writerow([title, "", "", "", "", reference["link"], reference["description"]])  # Dejamos las columnas de subtítulo e imágenes en blanco
+
+print(f"Los datos se han guardado en el archivo CSV: {csv_filename}")

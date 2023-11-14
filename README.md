@@ -26,6 +26,8 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 
 ### Instalacion de hadoop
 - https://www.youtube.com/watch?v=Slbi-uzPtnw
+- https://codewitharjun.medium.com/install-hadoop-on-ubuntu-operating-system-6e0ca4ef9689
+
 
 ### Inicio del servidor en hadoop
 - ssh localhost 
@@ -38,4 +40,7 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 - hdfs dfs -copyFromLocal /home/predye/Documentos/TareaII/wikipedia_data.json /predye
 
 ### verificar que este un archivo:
+- hdfs dfs -ls /predye
+
+### crear carpeta en hdfs:
 - hdfs dfs -ls /predye
