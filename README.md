@@ -32,7 +32,7 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 ### Inicio del servidor en hadoop
 - ssh localhost 
 - chmod 0600 ~/.ssh/authorized_keys 
-- hadoop-3.3.6/bin/hdfs namenode -format
+- hadoop-3.3.6/bin/hdfs namenode -format //FORMATEA TODOS LOS DATOS EXISTENTES
 - export PDSH_RCMD_TYPE=ssh
 - start-all.sh
 
@@ -48,7 +48,7 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 ### Verificar que este un archivo:
 - hadoop fs -ls /ruta/en/hdfs/
 
-### Ejecutar el trabajo MapReduce en Hadoop:
+### Ejecutar el job MapReduce en Hadoop:
 - hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-* \
 -files titles_count_mapper.py,titles_count_reducer.py -mapper titles_count_mapper.py -reducer titles_count_reducer.py \
 -input /ruta/al/archivo.csv -output /ruta/de/salida
