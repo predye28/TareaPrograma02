@@ -20,5 +20,3 @@ for line in sys.stdin:
 # Imprimir el resultado para la última clave
 if current_title:
     print(f"{current_title}\t{title_count}")
-
-

@@ -6,7 +6,7 @@ from nltk.stem import SnowballStemmer
 import time
 
 # Definir la URL de Wikipedia de inicio
-start_url = "https://es.wikipedia.org/wiki/Carro_de_combate"
+start_url = "https://es.wikipedia.org/wiki/Celulosa"
 
 # Definir el límite de páginas a rastrear (ajústalo según tus necesidades)
 max_pages_to_crawl = 1000

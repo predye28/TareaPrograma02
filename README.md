@@ -9,35 +9,76 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 - sudo apt update
 - sudo apt upgrade
 
-### Instalar Pyhton3 y pip
+## Instalar Pyhton3 y pip
 - sudo apt install python3
 - sudo apt install python3-pip
 
-### Instalar herramientas necesarias para el WebCrawler y la parte de hadoop
+### Instalar herramientas necesarias para el WebCrawler
 - sudo apt install wget
 - sudo apt install curl
 - pip3 install beautifulsoup4
 - pip3 install nltk  #Para el stemming
 - python3 -m nltk.downloader punkt
 - pip install mrjob
+- pip install mysql-connector-python
 
-### Instalar MariaDB
-- sudo apt install mariadb-server mariadb-client
+# Mariadb
 
-### Instalacion de hadoop
+## Instalar MariaDB
+- sudo apt install mariadb-server
+- sudo mysql_secure_installation //configurarlo
+- mysql --version //ver la version
+
+## Comandos en Mariadb 
+
+### Ejecutar MariaDB
+- sudo mysql
+
+### Crear usuario adicional
+- GRANT ALL ON *.* TO 'predye'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
+
+### Conectarme con un usuario
+- mysql -u predye -p
+
+### Crear base de datos
+- create database dbresultados;
+
+### Ver las bases de datos
+- show databases;
+
+### Ingresar a la base de datos
+- USE dbresultados;
+
+### Crear tabla en la base de datos
+- CREATE TABLE page_titles (
+    page_title VARCHAR(255),
+    title_count INT,
+    PRIMARY KEY (page_title)
+);
+
+
+
+# hadoop
+
+
+## Instalacion de hadoop
 - https://www.youtube.com/watch?v=Slbi-uzPtnw
 - https://codewitharjun.medium.com/install-hadoop-on-ubuntu-operating-system-6e0ca4ef9689
 
 
-### Inicio del servidor en hadoop
+## Inicio del servidor en hadoop
 - ssh localhost 
 - chmod 0600 ~/.ssh/authorized_keys 
 - hadoop-3.3.6/bin/hdfs namenode -format //FORMATEA TODOS LOS DATOS EXISTENTES
 - export PDSH_RCMD_TYPE=ssh
 - start-all.sh
 
-# Comandos en hadoop
 
+## Comandos en hadoop
+
+### Comandos para ingresar cada vez q reinicia hadoop
+- hadoop fs -mkdir /archivo.csv
+- hadoop fs -copyFromLocal /home/predye/Documentos/TareaII/wiki.csv /archivo.csv
 
 ### Crear carpeta en hdfs:
 - hadoop fs -mkdir /ruta/en/hdfs
