@@ -21,6 +21,9 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 - python3 -m nltk.downloader punkt
 - pip install mrjob
 - pip install mysql-connector-python
+- sudo apt-get install libmariadb-dev-compat
+- pip install mariadb
+
 
 # Mariadb
 
@@ -50,10 +53,10 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 - USE dbresultados;
 
 ### Crear tabla en la base de datos
-- CREATE TABLE page_titles (
-    page_title VARCHAR(255),
-    title_count INT,
-    PRIMARY KEY (page_title)
+- CREATE TABLE IF NOT EXISTS resultados1a (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    count INT
 );
 
 
@@ -96,3 +99,14 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 
 ### Verificar el resultado:
 - hadoop fs -cat /ruta/de/salida/output_titles_count/part-00000
+
+
+# Correr los archivos en local:
+- cat tu_archivo_prueba.csv | ./titles_count_mapper.py | sort | ./titles_count_reducer.py
+
+# Correr el archivo que sube la informacion a la base de datos con este resultado de hadoop 
+- hadoop fs -cat /resultado1aNormal/part-00000 | python3 insert_into_mariadb.py
+
+# Dar permisos a los archivos
+- chmod +x titles_count_mapper.py
+- chmod +x titles_count_reducer.py
