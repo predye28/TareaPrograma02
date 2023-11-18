@@ -81,7 +81,7 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 
 ### Comandos para ingresar cada vez q reinicia hadoop
 - hadoop fs -mkdir /archivo.csv
-- hadoop fs -copyFromLocal /home/predye/Documentos/TareaII/wiki.csv /archivo.csv
+- hadoop fs -copyFromLocal /home/predye/Documentos/GitHub/TareaPrograma02/bueno.csv /archivo.csv
 
 ### Crear carpeta en hdfs:
 - hadoop fs -mkdir /ruta/en/hdfs
@@ -95,10 +95,10 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 ### Ejecutar el job MapReduce en Hadoop:
 - hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-* \
 -files titles_count_mapper.py,titles_count_reducer.py -mapper titles_count_mapper.py -reducer titles_count_reducer.py \
--input /archivo.csv/wiki.csv -output /resultado1b
+-input /archivo.csv/bueno.csv -output /resultado1a
 
 ### Verificar el resultado:
-- hadoop fs -cat /ruta/de/salida/output_titles_count/part-00000
+- hadoop fs -cat /resultado1a/part-00000
 
 
 # Correr los archivos en local:

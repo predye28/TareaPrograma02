@@ -6,10 +6,10 @@ from nltk.stem import SnowballStemmer
 import time
 
 # Definir la URL de Wikipedia de inicio
-start_url = "https://es.wikipedia.org/wiki/Casa"
+start_url = "https://es.wikipedia.org/wiki/Casa_Blanca"
 
 # Definir el límite de páginas a rastrear (ajústalo según tus necesidades)
-max_pages_to_crawl = 5
+max_pages_to_crawl = 1000
 
 # Crear una lista para almacenar los datos de cada página
 pages_data = []
@@ -105,7 +105,7 @@ while visited_urls and pages_processed < max_pages_to_crawl:
 
             # Guardar datos en el archivo CSV cada 50 páginas
             if pages_processed % 50 == 0:
-                with open("bueno.csv", "a", newline="", encoding="utf-8") as csv_file:
+                with open("wikipedia_data.csv", "a", newline="", encoding="utf-8") as csv_file:
                     csv_writer = csv.writer(csv_file)
 
                     # Escribir los datos de las últimas páginas procesadas en el archivo CSV
@@ -133,7 +133,7 @@ while visited_urls and pages_processed < max_pages_to_crawl:
         print(f"Error al procesar {current_url}: {e}")
 
 # Al final, guardar los datos restantes en el archivo CSV
-with open("bueno.csv", "a", newline="", encoding="utf-8") as csv_file:
+with open("wikipedia_data.csv", "a", newline="", encoding="utf-8") as csv_file:
     csv_writer = csv.writer(csv_file)
 
     # Escribir la fila de encabezados si el archivo está vacío
