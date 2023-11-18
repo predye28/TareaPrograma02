@@ -13,7 +13,7 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 - sudo apt install python3
 - sudo apt install python3-pip
 
-### Instalar herramientas necesarias para el WebCrawler
+### Instalar herramientas
 - sudo apt install wget
 - sudo apt install curl
 - pip3 install beautifulsoup4
@@ -23,7 +23,8 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 - pip install mysql-connector-python
 - sudo apt-get install libmariadb-dev-compat
 - pip install mariadb
-
+- sudo apt-get install php libapache2-mod-php php-mysql
+- sudo apt-get install php-mysqli
 
 # Mariadb
 
@@ -134,3 +135,10 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 # Dar permisos a los archivos
 - chmod +x titles_count_mapper.py
 - chmod +x titles_count_reducer.py
+
+
+
+### PHP
+
+## INICIAR SERVIDOR:
+- php -S localhost:8000

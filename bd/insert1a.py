@@ -39,3 +39,7 @@ cursor.close()
 conn.close()
 
 
+casa se 132
+casa de 12
+casa la 12
+
