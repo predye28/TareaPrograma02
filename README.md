@@ -59,10 +59,34 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
     count INT
 );
 
+### Crear tabla en la base de datos
+- CREATE TABLE resultados1b (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(250),
+    count INT
+);
 
+### Crear tabla en la base de datos
+- CREATE TABLE resultados1c (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(250),
+    count INT
+);
+
+### Crear tabla en la base de datos
+- CREATE TABLE resultados1dFALTA (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(250),
+    count INT
+);
+### Crear tabla en la base de datos
+- CREATE TABLE resultados1e (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(250),
+    count INT
+);
 
 # hadoop
-
 
 ## Instalacion de hadoop
 - https://www.youtube.com/watch?v=Slbi-uzPtnw
