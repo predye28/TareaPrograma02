@@ -2,36 +2,31 @@
 
 import sys
 
-current_reference = None
-reference_count = 0
-active_count = 0
+current_title = None
+total_references_with_links = 0
 
+# Procesar la entrada de la secuencia estándar
 for line in sys.stdin:
-    # Dividir la línea en elementos
-    elements = line.strip().split("\t")
+    # Eliminar espacios en blanco
+    line = line.strip()
 
-    # Verificar que haya al menos dos elementos
-    if len(elements) >= 2:
-        page_title, url, description = elements[0], elements[1], elements[2] if len(elements) == 3 else ""
+    # Obtener el título y el indicador de enlace de la línea
+    title, has_link = line.split("\t")
 
-        # Comprobar si estamos tratando con la misma referencia
-        if current_reference == url:
-            reference_count += 1
+    # Convertir el indicador de enlace de cadena a entero
+    has_link = int(has_link)
 
-            # Verificar si la descripción indica que el enlace está activo
-            if description.lower() == "activo":
-                active_count += 1
+    # Si cambia el título, imprimir el recuento actual y reiniciar para el nuevo título
+    if current_title and current_title != title:
+        print(f"{current_title}\t{total_references_with_links}")
+        total_references_with_links = 0
 
-        else:
-            # Imprimir resultados para la referencia anterior
-            if current_reference:
-                print(f"{current_reference}\t{reference_count}\t{active_count}")
+    # Actualizar el contador de referencias con enlaces
+    total_references_with_links += has_link
 
-            # Reiniciar variables para la nueva referencia
-            current_reference = url
-            reference_count = 1
-            active_count = 1 if description.lower() == "activo" else 0
+    # Actualizar el título actual
+    current_title = title
 
-# Imprimir el resultado para la última referencia
-if current_reference:
-    print(f"{current_reference}\t{reference_count}\t{active_count}")
+# Imprimir el último título
+if current_title:
+    print(f"{current_title}\t{total_references_with_links}")
