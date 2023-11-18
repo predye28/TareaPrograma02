@@ -6,12 +6,12 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-  <title>Cuantos titulos tiene cada página</title>
+  <title>Cuántas veces se usa cada referencia en el texto</title>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>¿Cuántos títulos tiene cada página?</h1>
+      <h1>¿Cuántas veces se usa cada referencia en el texto?</h1>
     </header>
 
     <nav>
@@ -25,7 +25,7 @@
       include 'conexion.php';
 
       // Consulta a la base de datos
-      $sql = "SELECT * FROM resultados1a";
+      $sql = "SELECT * FROM resultados1d";
       $result = $conn->query($sql);
 
       echo "<h2>Información de la Tabla</h2>";
