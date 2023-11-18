@@ -95,7 +95,7 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 ### Ejecutar el job MapReduce en Hadoop:
 - hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-* \
 -files titles_count_mapper.py,titles_count_reducer.py -mapper titles_count_mapper.py -reducer titles_count_reducer.py \
--input /ruta/al/archivo.csv -output /ruta/de/salida
+-input /archivo.csv/wiki.csv -output /resultado1b
 
 ### Verificar el resultado:
 - hadoop fs -cat /ruta/de/salida/output_titles_count/part-00000
