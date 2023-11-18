@@ -2,22 +2,23 @@
 
 import sys
 
-current_reference = None
-reference_count = 0
+current_key = None
+reference_counts = {}
 
 for line in sys.stdin:
-    reference, count = line.strip().split("\t")
+    key, reference, count = line.strip().split("\t")
     count = int(count)
 
-    # Si la clave actual es diferente de la anterior, imprimir resultado y reiniciar el conteo
-    if current_reference and current_reference != reference:
-        print(f"{current_reference}\t{reference_count}")
-        reference_count = 0
-
-    # Actualizar la clave y el conteo
-    current_reference = reference
-    reference_count += count
+    if current_key == key:
+        reference_counts[reference] = reference_counts.get(reference, 0) + count
+    else:
+        if current_key:
+            for ref, ref_count in reference_counts.items():
+                print(f"{current_key}\t{ref}\t{ref_count}")
+        current_key = key
+        reference_counts = {reference: count}
 
 # Imprimir el resultado para la última clave
-if current_reference:
-    print(f"{current_reference}\t{reference_count}")
+if current_key:
+    for ref, ref_count in reference_counts.items():
+        print(f"{current_key}\t{ref}\t{ref_count}")
