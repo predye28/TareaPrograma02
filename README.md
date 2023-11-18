@@ -53,9 +53,9 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 - USE dbresultados;
 
 ### Crear tabla en la base de datos
-- CREATE TABLE IF NOT EXISTS resultados1a (
+- CREATE TABLE resultados1a (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
+    title VARCHAR(250),
     count INT
 );
 

@@ -9,7 +9,7 @@ import time
 start_url = "https://es.wikipedia.org/wiki/Casa"
 
 # Definir el límite de páginas a rastrear (ajústalo según tus necesidades)
-max_pages_to_crawl = 1000
+max_pages_to_crawl = 5
 
 # Crear una lista para almacenar los datos de cada página
 pages_data = []
@@ -39,7 +39,9 @@ def extract_page_data(url):
             page_data["subtitles"] = [subtitle.get_text() for subtitle in subtitles]
 
             # Extraer texto, evitando elementos que no son cadena de texto
-            page_data["text"] = [str(element) for element in soup.find_all(string=True) if isinstance(element, (str, bytes))]
+            # Extraer texto solo de las etiquetas de párrafo
+            page_data["text"] = [paragraph.get_text() for paragraph in soup.find_all('p')]
+
 
             # Extraer imágenes y aplicar Stemming al "alt" texto
             images = soup.find_all("img")
@@ -103,7 +105,7 @@ while visited_urls and pages_processed < max_pages_to_crawl:
 
             # Guardar datos en el archivo CSV cada 50 páginas
             if pages_processed % 50 == 0:
-                with open("wikipedia_data.csv", "a", newline="", encoding="utf-8") as csv_file:
+                with open("bueno.csv", "a", newline="", encoding="utf-8") as csv_file:
                     csv_writer = csv.writer(csv_file)
 
                     # Escribir los datos de las últimas páginas procesadas en el archivo CSV
@@ -131,7 +133,7 @@ while visited_urls and pages_processed < max_pages_to_crawl:
         print(f"Error al procesar {current_url}: {e}")
 
 # Al final, guardar los datos restantes en el archivo CSV
-with open("wikipedia_data.csv", "a", newline="", encoding="utf-8") as csv_file:
+with open("bueno.csv", "a", newline="", encoding="utf-8") as csv_file:
     csv_writer = csv.writer(csv_file)
 
     # Escribir la fila de encabezados si el archivo está vacío
