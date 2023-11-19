@@ -3,7 +3,7 @@
 import sys
 import mariadb
 
-# Configurar la conexión a la base de datos
+
 try:
     conn = mariadb.connect(
         user="predye",
@@ -17,23 +17,26 @@ except mariadb.Error as e:
     print(f"Error al conectar a MariaDB: {e}")
     sys.exit(1)
 
-# Procesar la entrada y realizar la inserción en la base de datos
 for line in sys.stdin:
     try:
-        # Intentar desempaquetar la línea
         title, references, count = line.strip().split("\t")
     except ValueError:
-        # Si hay un error, imprimir la línea y continuar con la siguiente
         print(f"Error al desempaquetar la línea: {line.strip()}")
         continue
-    
+
+    max_title_length = 250  
+    max_references_length = 250  
+    if len(title) > max_title_length:
+        title = title[:max_title_length]
+    if len(references) > max_references_length:
+        references = references[:max_references_length]
+
     try:
-        # Insertar en la base de datos utilizando placeholders
-        cursor.execute("INSERT INTO resultados1d (title, referencias ,count) VALUES (?, ?, ?)", (title, references, int(count)))
+        cursor.execute("INSERT INTO resultados1d (title, referencias, count) VALUES (?, ?, ?)", (title, references, int(count)))
         conn.commit()
     except mariadb.Error as e:
         print(f"Error al insertar en la base de datos: {e}")
 
-# Cerrar el cursor y la conexión a la base de datos
 cursor.close()
 conn.close()
+

@@ -78,7 +78,7 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 - CREATE TABLE resultados1d (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(250),
-    referencias VARCHAR(250),
+    referencias VARCHAR(255),
     count INT
 );
 ### Crear tabla en la base de datos
@@ -127,8 +127,6 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 -input /archivo.csv/bueno.csv -output /resultado1a
 
 
-quiero que me ayudes a resolver lo sigueinte, tengo dos codigos depy que se encarga de realizar un map reduce de un archivo.csv 
-
 
 ### Todos los job a ejecutar:
 
@@ -154,13 +152,17 @@ D
 
 - hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-* \
 -files uso_enlaces_mapper.py,uso_enlaces_reducer.py -mapper uso_enlaces_mapper.py -reducer uso_enlaces_reducer.py \
--input /archivo.csv/bueno.csv -output /resultado1d
+-input /archivo.csv/wikipedia_data.csv -output /resultado1d
 
 e
 
 - hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-* \
 -files imagenes_alt_mapper.py,imagenes_alt_reducer.py -mapper imagenes_alt_mapper.py -reducer imagenes_alt_reducer.py \
--input /archivo.csv/bueno.csv -output /resultado1e
+-input /archivo.csv/wikipedia_data.csv -output /resultado1eFinal
+
+
+
+e
 
 
 ### Verificar el resultado:
@@ -168,7 +170,7 @@ e
 
 
 # Correr los archivos en local:
-- cat bueno.csv | ./uso_enlace_mapper.py | sort | ./uso_enlaces_reducer.py
+- cat bueno.csv | ./imagenes_alt_mapper.py | sort | ./imagenes_alt_reducer.py
 
 # Correr el archivo que sube la informacion a la base de datos con este resultado de hadoop 
 - hadoop fs -cat /resultado1aNormal/part-00000 | python3 insert1a.py

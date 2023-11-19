@@ -32,7 +32,7 @@
 
       if ($result->num_rows > 0) {
           echo "<table>";
-          echo "<tr><th>Título</th><th>Referencia</th><th>Cantidad Total</th></tr>";
+          echo "<tr><th>Página</th><th>Referencia</th><th>Cantidad Total</th></tr>";
 
           while($row = $result->fetch_assoc()) {
               echo "<tr><td>" . $row["title"] . "</td><td>" . $row["referencias"] . "</td><td>" . $row["total_count"] . "</td></tr>";
