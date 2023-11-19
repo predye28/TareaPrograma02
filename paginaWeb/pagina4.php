@@ -25,17 +25,17 @@
       include 'conexion.php';
 
       // Consulta a la base de datos
-      $sql = "SELECT * FROM resultados1d";
+      $sql = "SELECT title, referencias, SUM(count) AS total_count FROM resultados1d GROUP BY title, referencias";
       $result = $conn->query($sql);
 
       echo "<h2>Información de la Tabla</h2>";
 
       if ($result->num_rows > 0) {
           echo "<table>";
-          echo "<tr><th>ID</th><th>Título</th><th>Cantidad</th></tr>";
+          echo "<tr><th>Título</th><th>Referencia</th><th>Cantidad Total</th></tr>";
 
           while($row = $result->fetch_assoc()) {
-              echo "<tr><td>" . $row["id"] . "</td><td>" . $row["title"] . "</td><td>" . $row["count"] . "</td></tr>";
+              echo "<tr><td>" . $row["title"] . "</td><td>" . $row["referencias"] . "</td><td>" . $row["total_count"] . "</td></tr>";
           }
 
           echo "</table>";
@@ -48,3 +48,5 @@
   </div>
 </body>
 </html>
+
+

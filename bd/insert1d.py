@@ -21,7 +21,7 @@ except mariadb.Error as e:
 for line in sys.stdin:
     try:
         # Intentar desempaquetar la línea
-        title, count = line.strip().split("\t")
+        title, references, count = line.strip().split("\t")
     except ValueError:
         # Si hay un error, imprimir la línea y continuar con la siguiente
         print(f"Error al desempaquetar la línea: {line.strip()}")
@@ -29,7 +29,7 @@ for line in sys.stdin:
     
     try:
         # Insertar en la base de datos utilizando placeholders
-        cursor.execute("INSERT INTO resultados1d (title, count) VALUES (?, ?)", (title, int(count)))
+        cursor.execute("INSERT INTO resultados1d (title, referencias ,count) VALUES (?, ?, ?)", (title, references, int(count)))
         conn.commit()
     except mariadb.Error as e:
         print(f"Error al insertar en la base de datos: {e}")

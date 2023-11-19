@@ -75,9 +75,10 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 );
 
 ### Crear tabla en la base de datos
-- CREATE TABLE resultados1dFALTA (
+- CREATE TABLE resultados1d (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(250),
+    referencias VARCHAR(250),
     count INT
 );
 ### Crear tabla en la base de datos
@@ -106,7 +107,10 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 
 ### Comandos para ingresar cada vez q reinicia hadoop
 - hadoop fs -mkdir /archivo.csv
-- hadoop fs -copyFromLocal /home/predye/Documentos/GitHub/TareaPrograma02/bueno.csv /archivo.csv
+- hadoop fs -copyFromLocal /home/predyye/Documentos/GitHub/TareaPrograma02/bueno.csv /archivo.csv
+
+### Parar hadoop
+- stop-all.sh
 
 ### Crear carpeta en hdfs:
 - hadoop fs -mkdir /ruta/en/hdfs
@@ -122,15 +126,52 @@ Ingresar los siguientes comandos para actualizar y instalar lo necesario para co
 -files titles_count_mapper.py,titles_count_reducer.py -mapper titles_count_mapper.py -reducer titles_count_reducer.py \
 -input /archivo.csv/bueno.csv -output /resultado1a
 
+
+quiero que me ayudes a resolver lo sigueinte, tengo dos codigos depy que se encarga de realizar un map reduce de un archivo.csv 
+
+
+### Todos los job a ejecutar:
+
+A
+
+- hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-* \
+-files titles_count_mapper.py,titles_count_reducer.py -mapper titles_count_mapper.py -reducer titles_count_reducer.py \
+-input /archivo.csv/bueno.csv -output /resu1a
+
+B
+
+- hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-* \
+-files palabras_distintas_mapper.py,palabras_distintas_reducer.py -mapper palabras_distintas_mapper.py -reducer palabras_distintas_reducer.py \
+-input /archivo.csv/bueno.csv -output /resultado1b
+
+C
+
+- hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-* \
+-files enlaces_count_mapper.py,enlaces_count_reducer.py -mapper enlaces_count_mapper.py -reducer enlaces_count_reducer.py \
+-input /archivo.csv/bueno.csv -output /resultado1c
+
+D
+
+- hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-* \
+-files uso_enlaces_mapper.py,uso_enlaces_reducer.py -mapper uso_enlaces_mapper.py -reducer uso_enlaces_reducer.py \
+-input /archivo.csv/bueno.csv -output /resultado1d
+
+e
+
+- hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-* \
+-files imagenes_alt_mapper.py,imagenes_alt_reducer.py -mapper imagenes_alt_mapper.py -reducer imagenes_alt_reducer.py \
+-input /archivo.csv/bueno.csv -output /resultado1e
+
+
 ### Verificar el resultado:
-- hadoop fs -cat /resultado1a/part-00000
+- hadoop fs -cat /resultado1a/part-00000 
 
 
 # Correr los archivos en local:
-- cat tu_archivo_prueba.csv | ./titles_count_mapper.py | sort | ./titles_count_reducer.py
+- cat bueno.csv | ./uso_enlace_mapper.py | sort | ./uso_enlaces_reducer.py
 
 # Correr el archivo que sube la informacion a la base de datos con este resultado de hadoop 
-- hadoop fs -cat /resultado1aNormal/part-00000 | python3 insert_into_mariadb.py
+- hadoop fs -cat /resultado1aNormal/part-00000 | python3 insert1a.py
 
 # Dar permisos a los archivos
 - chmod +x titles_count_mapper.py
